@@ -1,23 +1,27 @@
 require_relative 'environment'
 
 class SQLRunner
-
-  COMMANDS = ["create", "insert"]
-
   def initialize(db)
     @db = db
   end
 
-  def self.make_methods
-    COMMANDS.each do |command|
-      define_method("execute_sql_#{command}") do
-        sql = File.read("lib/#{command}.sql")
-        execute_sql(sql)
-      end
-    end
+  def execute_create_file
+    sql = File.read("lib/create.sql")
+    @db.execute_batch(sql)
   end
 
-  def execute_sql(sql)
-     sql.scan(/[^;]*;/m).each { |line| @db.execute(line) } unless sql.empty?
+  def execute_insert_file
+    sql = File.read("lib/insert.sql")
+    @db.execute_batch(sql)
+  end
+
+  def execute_select_file
+    sql = File.read("lib/select.sql")
+    @db.execute_batch(sql)
+  end
+
+  def execute_data
+    sql = File.read('lib/seed.sql')
+    @db.execute_batch(sql)
   end
 end

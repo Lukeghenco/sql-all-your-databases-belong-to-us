@@ -11,9 +11,9 @@ CREATE TABLE video_games (
   id INTEGER PRIMARY KEY,
   title TEXT,
   rating INTEGER,
-  publisher TEXT,
+  developer TEXT,
   genre TEXT,
-  price INTEGER
+  price FLOAT
 );
 ```
 Run `rspec` to get started with your tests. Write your `SQL` in `lib/video_games.rb` to get the specs in `spec/video_game_spec.rb` to pass.

@@ -1,12 +1,15 @@
 require "spec_helper"
 
 describe "Querying video games with SQL" do
+
   before do
     @db = SQLite3::Database.new(':memory:')
-    SQLRunner.make_methods
     @sql_runner = SQLRunner.new(@db)
-    @sql_runner.execute_sql_create
-    @sql_runner.execute_sql_insert
+    @sql_runner.execute_create_file
+    @sql_runner.execute_data
+  end
+  after do
+    File.open('lib/sql', 'w'){ |f| f.truncate(0) }
   end
 
   describe "#highest_priced_game" do
